@@ -36,7 +36,9 @@ $instruction = Import-Csv $intruction_path
 # Matching emails with the instruction list
 foreach ($email in $newEmails){
     foreach ($row in $instruction){
-        if ($email.Subject -match $row.'Subject'){
+        $emailsubject = $email.Subject
+        $rowsubject = $row.Subject
+        if ($emailsubject -like "*$rowsubject*"){
             $dtsn_path = $row.DestinationFolder
             # Move emails
             $dstn = get-folder($dtsn_path)
